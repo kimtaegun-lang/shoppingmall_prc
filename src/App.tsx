@@ -22,7 +22,7 @@ const ProductItem = ({ product, onDelete, onUpdate }: ProductItemProps) => {
   const [editPrice, setEditPrice] = useState(product.price);
 
   return (
-
+// 주석 테스트입니다.
     <div key={id}>
       <div>{id}</div>
       <div>{name}</div>
