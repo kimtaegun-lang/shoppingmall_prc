@@ -17,8 +17,12 @@ const ProductItem = ({ product, onDelete, onUpdate }: ProductItemProps) => {
 
   return (
 // 주석 테스트입니다.
-    <div key={id}>
-      <div>{id}</div>
+    <div>
+      {product.thumbnail && (
+        <img
+         src={product.thumbnail}
+        />
+      )}
       <div>
         <Link to={`/${id}`}>{name}</Link>
       </div>

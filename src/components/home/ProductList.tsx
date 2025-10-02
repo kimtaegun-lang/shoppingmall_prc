@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import {ProductType} from '../../types';
 import {ProductItem} from './index';
-
+import { CircularProgress } from '@mui/material';
 function ProductList() {
     const [products, setProducts] = useState<ProductType[]>([]);
-
+    const [loading,setLoading]=useState(false);
     useEffect(() => {
+        setLoading(true);
         fetch('/product') 
             // 웹 브라우저의 보안 정책인 cors때문에 proxy 설정 필요
             // cors이란: 포트번호가 다르면 다른 서버로 인식하는 정책
@@ -13,6 +14,7 @@ function ProductList() {
             .then((response) => response.json()) // response는 응답 객체 이를 json형태로 파싱
             .then((data) => {
                 setProducts(data.products)
+                setLoading(false);
                 console.log(data);
             }); // response객체에서 data
     }, [])
@@ -46,16 +48,19 @@ function ProductList() {
 
 
     return (
+
         <ul>
-        {products.map((product) => (
+        {loading ? <CircularProgress/> :(
+        products.map((product) => (
         <ProductItem
           key={product.id}
           product={product}
           onDelete={handleDelete}
           onUpdate={handleUpdate}
         />
-      ))}
+      )))}
       </ul>
-    )
+    );
+    
 }
 export default ProductList;
